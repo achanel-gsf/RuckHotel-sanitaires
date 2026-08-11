@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GSF Mercure</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    width:90%;
+    max-width:400px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+
+.logo{
+    color:#C80F2D;
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.local{
+    font-size:22px;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.ok{
+    color:green;
+    font-size:26px;
+    font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="logo">GSF MERCURE</div>
+
+<div class="ok">✅ Passage enregistré</div>
+
+<div id="local" class="local"></div>
+
+<div id="heure"></div>
+
+</div>
+
+<script>
+
+const sanitaires = {
+  SAN001:"Sanitaires hommes",
+  SAN002:"Sanitaires femmes",
+  SAN003:"Sanitaires PMR 1",
+  SAN004:"Sanitaires PMR 2",
+  SAN005:"Sanitaires bureaux",
+  SAN006:"Vestiaires hommes Ruck",
+  SAN007:"Vestiaires femmes Ruck",
+  SAN008:"Vestiaires hommes GSF",
+  SAN009:"Vestiaires femmes GSF"
+};
+
+const params = new URLSearchParams(window.location.search);
+const code = params.get("sanitaire");
+
+document.getElementById("local").innerText = sanitaires[code];
+document.getElementById("heure").innerText =
+new Date().toLocaleString("fr-FR");
+
+fetch("URL_DU_FLUX_POWER_AUTOMATE",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      sanitaire:code,
+      libelle:sanitaires[code],
+      date:new Date().toISOString()
+    })
+});
+
+</script>
+
+</body>
+</html>
