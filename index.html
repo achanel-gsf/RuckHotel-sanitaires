@@ -95,6 +95,9 @@ fetch("https://defaulte8c8d0a4ec7b4940841e669c54f995.4e.environment.api.powerpla
       date:new Date().toISOString()
     })
 });
+.then(response => response.json())
+.then(data => console.log("Passage enregistré"))
+.catch(error => console.error(error));
 
 </script>
 
