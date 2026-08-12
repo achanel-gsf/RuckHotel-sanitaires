@@ -84,7 +84,9 @@ document.getElementById("local").innerText = sanitaires[code];
 document.getElementById("heure").innerText =
 new Date().toLocaleString("fr-FR");
 
-fetch("https://defaulte8c8d0a4ec7b4940841e669c54f995.4e.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/10/workflows/af028e396c9b42a5becd06d5b4f203ae/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=3SBKq6DRQ8PM2Wua0RjoW5xjCWDCzbS3JcErOJe50e0 ",{
+const flowUrl = "https://defaulte8c8d0a4ec7b4940841e669c54f995.4e.environment.api.powerplatform.com/powerautomate/automations/direct/cu/10/workflows/af028e396c9b42a5becd06d5b4f203ae/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=3SBKq6DRQ8PM2Wua0RjoW5xjCWDCzbS3JcErOJe50e0";
+
+fetch(flowUrl, {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -95,12 +97,10 @@ fetch("https://defaulte8c8d0a4ec7b4940841e669c54f995.4e.environment.api.powerpla
         date: new Date().toISOString()
     })
 })
-.then(response => {
+.then(async response => {
+    const text = await response.text();
     console.log("Status :", response.status);
-    return response.text();
-})
-.then(data => {
-    console.log("Réponse :", data);
+    console.log("Réponse :", text);
 })
 .catch(error => {
     console.error("Erreur :", error);
