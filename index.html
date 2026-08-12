@@ -84,7 +84,7 @@ document.getElementById("local").innerText = sanitaires[code];
 document.getElementById("heure").innerText =
 new Date().toLocaleString("fr-FR");
 
-fetch("URL_DU_FLUX_POWER_AUTOMATE",{
+fetch("https://defaulte8c8d0a4ec7b4940841e669c54f995.4e.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/10/workflows/af028e396c9b42a5becd06d5b4f203ae/triggers/manual/paths/invoke?api-version=1",{
     method:"POST",
     headers:{
       "Content-Type":"application/json"
