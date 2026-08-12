@@ -85,19 +85,26 @@ document.getElementById("heure").innerText =
 new Date().toLocaleString("fr-FR");
 
 fetch("https://defaulte8c8d0a4ec7b4940841e669c54f995.4e.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/10/workflows/af028e396c9b42a5becd06d5b4f203ae/triggers/manual/paths/invoke?api-version=1",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
     },
-    body:JSON.stringify({
-      sanitaire:code,
-      libelle:sanitaires[code],
-      date:new Date().toISOString()
+    body: JSON.stringify({
+        sanitaire: code,
+        libelle: sanitaires[code],
+        date: new Date().toISOString()
     })
+})
+.then(response => {
+    console.log("Status :", response.status);
+    return response.text();
+})
+.then(data => {
+    console.log("Réponse :", data);
+})
+.catch(error => {
+    console.error("Erreur :", error);
 });
-.then(response => response.json())
-.then(data => console.log("Passage enregistré"))
-.catch(error => console.error(error));
 
 </script>
 
